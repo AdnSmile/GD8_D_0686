@@ -3,6 +3,8 @@ package com.learning.gd8_d_0686
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -68,9 +70,23 @@ class MainActivity : AppCompatActivity() {
                 initMarker(modelMainList)
             } catch (e:JSONException) {
                 e.printStackTrace()
-            }
-        } catch (ignored: IOException){
 
+                // Berkeliatan error nya
+                AlertDialog.Builder(this)
+                    .setTitle("Eror")
+                    .setMessage(e.message)
+                    .setPositiveButton("OK"){dialog, which ->
+                        dialog.dismiss()
+                    }
+                    .show()
+            }
+        } catch (e:Exception){
+            e.printStackTrace()
+            Toast.makeText(
+                this@MainActivity,
+                "Error: " + e.message,
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 
